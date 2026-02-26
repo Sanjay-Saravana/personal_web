@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | Sanjay Saravanan</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin-body">
+    <div class="quick-corner-actions">
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
+    </div>
+
+    <main class="container admin-page">
+      <header class="admin-header">
+        <a class="brand" href="index.html">← Back to Portfolio</a>
+      </header>
+
+      <section class="admin-card reveal visible">
+        <h1>Admin Panel</h1>
+        <p>Login and manage your portfolio content stored in Supabase.</p>
+
+        <form id="login-form" class="admin-form">
+          <h2>Admin Login</h2>
+          <input type="email" name="email" placeholder="Admin email" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+
+        <div id="admin-tools" hidden>
+          <p class="success" id="auth-status">Logged in.</p>
+
+          <form class="admin-form" data-type="web_apps">
+            <h3>Add Web App</h3>
+            <input name="title" placeholder="App title" required />
+            <textarea name="description" placeholder="What does this app do?" required></textarea>
+            <input name="url" placeholder="https://..." />
+            <button class="btn btn-secondary" type="submit">Save Web App</button>
+          </form>
+
+          <form class="admin-form" data-type="projects">
+            <h3>Add Project</h3>
+            <input name="title" placeholder="Project title" required />
+            <textarea name="description" placeholder="Project summary" required></textarea>
+            <input name="url" placeholder="https://..." />
+            <button class="btn btn-secondary" type="submit">Save Project</button>
+          </form>
+
+          <form class="admin-form" data-type="python_packages">
+            <h3>Add Python Package</h3>
+            <input name="title" placeholder="Package name" required />
+            <textarea name="description" placeholder="Why this package matters" required></textarea>
+            <input name="url" placeholder="PyPI / GitHub URL" />
+            <button class="btn btn-secondary" type="submit">Save Python Package</button>
+          </form>
+        </div>
+
+        <p id="admin-message" class="small-note"></p>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
