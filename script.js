@@ -2,7 +2,11 @@ const SUPABASE_CONFIG = window.__SUPABASE_CONFIG || null;
 
 let supabase = null;
 
-if (window.supabase && SUPABASE_CONFIG?.url && SUPABASE_CONFIG?.anonKey) {
+if (
+  window.supabase &&
+  SUPABASE_CONFIG?.url &&
+  SUPABASE_CONFIG?.anonKey
+) {
   supabase = window.supabase.createClient(
     SUPABASE_CONFIG.url,
     SUPABASE_CONFIG.anonKey
