@@ -342,6 +342,7 @@ h2 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.8rem;
   margin-top: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 .counter-chip {
