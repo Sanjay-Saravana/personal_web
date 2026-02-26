@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="admin-body">
+    <div class="quick-corner-actions">
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
+    </div>
+
     <main class="container admin-page">
       <header class="admin-header">
         <a class="brand" href="index.html">← Back to Portfolio</a>
-        <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
       </header>
 
       <section class="admin-card reveal visible">
@@ -57,6 +60,7 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

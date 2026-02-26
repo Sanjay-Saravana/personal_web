@@ -1,11 +1,10 @@
-const SUPABASE_URL = 'https://YOUR-PROJECT.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR-ANON-KEY';
+const SUPABASE_CONFIG = window.__SUPABASE_CONFIG || null;
 
 const getSupabaseClient = () => {
-  if (!window.supabase || SUPABASE_URL.includes('YOUR-PROJECT')) {
+  if (!window.supabase || !SUPABASE_CONFIG?.url || !SUPABASE_CONFIG?.anonKey) {
     return null;
   }
-  return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  return window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
 };
 
 const applyTheme = (theme) => {
@@ -207,7 +206,7 @@ const setupAdmin = () => {
   const supabase = getSupabaseClient();
 
   if (!supabase) {
-    message.textContent = 'Add your Supabase URL and anon key in script.js to enable login and saves.';
+    message.textContent = 'Create supabase-config.js (not committed) from supabase-config.example.js to enable admin login.';
     return;
   }
 

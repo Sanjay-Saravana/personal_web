@@ -19,14 +19,15 @@
   <body>
     <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
+    <div class="quick-corner-actions">
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
+      <a class="admin-link" href="admin.html">Admin Login</a>
+    </div>
+
     <header class="site-header" id="top">
       <nav class="nav container">
         <a class="brand" href="#top">Sanjay Saravanan</a>
-        <div class="nav-actions">
-          <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
-          <a class="admin-link" href="admin.html">Admin</a>
-          <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
-        </div>
+        <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#expertise">Expertise</a></li>
@@ -52,7 +53,7 @@
             <a class="btn btn-secondary" href="https://sanjaysaravanan.com" target="_blank" rel="noreferrer">Visit Domain</a>
           </div>
         </div>
-        <aside class="hero-profile float-card">
+        <aside class="hero-profile float-card reveal">
           <img
             class="profile-pic"
             src="profile.jpg"
@@ -82,19 +83,19 @@
       <section id="expertise" class="section container reveal">
         <h2>Expertise Highlights</h2>
         <div class="grid cards">
-          <article class="card glow-card">
+          <article class="card glow-card reveal">
             <h3>Modern Full Stack Development</h3>
             <p>Architecting secure, high-performance web apps with clean APIs, responsive UIs, and production-ready workflows.</p>
           </article>
-          <article class="card glow-card">
+          <article class="card glow-card reveal">
             <h3>Python & Data Science</h3>
             <p>Building data-driven products, experimentation frameworks, and analytics pipelines from prototype to production.</p>
           </article>
-          <article class="card glow-card">
+          <article class="card glow-card reveal">
             <h3>Machine Learning & Deep Learning</h3>
             <p>Training and deploying explainable ML/DL models with rigorous evaluation, monitoring, and measurable business impact.</p>
           </article>
-          <article class="card glow-card">
+          <article class="card glow-card reveal">
             <h3>Agentic AI Engineering</h3>
             <p>Designing autonomous AI agents that can reason, call tools, and orchestrate multi-step workflows reliably.</p>
           </article>
@@ -104,15 +105,15 @@
       <section id="impact" class="section container reveal">
         <h2>Why Recruiters Choose Me</h2>
         <div class="grid metrics">
-          <article class="metric">
+          <article class="metric reveal">
             <p class="metric-number" data-target="4">0</p>
             <p>Core technical domains mastered</p>
           </article>
-          <article class="metric">
+          <article class="metric reveal">
             <p class="metric-number" data-target="100">0</p>
             <p>Commitment to production-grade quality</p>
           </article>
-          <article class="metric">
+          <article class="metric reveal">
             <p class="metric-number" data-target="24">0</p>
             <p>Hours mindset for continuous improvement</p>
           </article>
@@ -125,15 +126,15 @@
           <p class="small-note">Entries shown below are loaded from Supabase and managed from the admin page.</p>
         </div>
         <div class="portfolio-grid">
-          <article>
+          <article class="reveal">
             <h3>Web Apps</h3>
             <div id="web-apps" class="list-stack"></div>
           </article>
-          <article>
+          <article class="reveal">
             <h3>Projects</h3>
             <div id="projects" class="list-stack"></div>
           </article>
-          <article>
+          <article class="reveal">
             <h3>Python Packages</h3>
             <div id="python-packages" class="list-stack"></div>
           </article>
@@ -155,6 +156,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
