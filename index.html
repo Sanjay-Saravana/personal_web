@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,13 +23,14 @@
       <nav class="nav container">
         <a class="brand" href="#top">Sanjay Saravanan</a>
         <div class="nav-actions">
-          <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">🌙</button>
+          <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
           <a class="admin-link" href="admin.html">Admin</a>
           <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
         </div>
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#expertise">Expertise</a></li>
+          <li><a href="#impact">Impact</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -54,8 +55,9 @@
         <aside class="hero-profile float-card">
           <img
             class="profile-pic"
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80"
-            alt="Portrait placeholder for Sanjay Saravanan"
+            src="profile.jpg"
+            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80';"
+            alt="Sanjay Saravanan profile photo"
           />
           <p class="card-title">Core Profile</p>
           <ul>
@@ -95,6 +97,24 @@
           <article class="card glow-card">
             <h3>Agentic AI Engineering</h3>
             <p>Designing autonomous AI agents that can reason, call tools, and orchestrate multi-step workflows reliably.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="impact" class="section container reveal">
+        <h2>Why Recruiters Choose Me</h2>
+        <div class="grid metrics">
+          <article class="metric">
+            <p class="metric-number" data-target="4">0</p>
+            <p>Core technical domains mastered</p>
+          </article>
+          <article class="metric">
+            <p class="metric-number" data-target="100">0</p>
+            <p>Commitment to production-grade quality</p>
+          </article>
+          <article class="metric">
+            <p class="metric-number" data-target="24">0</p>
+            <p>Hours mindset for continuous improvement</p>
           </article>
         </div>
       </section>

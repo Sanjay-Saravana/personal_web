@@ -16,7 +16,7 @@ const applyTheme = (theme) => {
 };
 
 const setupThemeToggle = () => {
-  const saved = localStorage.getItem('theme') || 'dark';
+  const saved = localStorage.getItem('theme') || 'light';
   applyTheme(saved);
   const toggle = document.getElementById('theme-toggle');
   if (!toggle) return;
@@ -61,6 +61,45 @@ const setupReveal = () => {
   );
 
   reveals.forEach((section) => revealObserver.observe(section));
+};
+
+const animateCounters = () => {
+  const metrics = document.querySelectorAll('.metric-number');
+  if (!metrics.length) return;
+
+  const animateCounter = (element) => {
+    const target = Number(element.dataset.target);
+    const duration = 1200;
+    let start = null;
+
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const value = Math.floor(progress * target);
+      element.textContent = `${value}${target === 100 ? '%' : '+'}`;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        element.textContent = `${target}${target === 100 ? '%' : '+'}`;
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  const metricObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  metrics.forEach((metric) => metricObserver.observe(metric));
 };
 
 const renderItems = (containerId, rows) => {
@@ -217,6 +256,7 @@ const setupAdmin = () => {
 setupThemeToggle();
 setupNavigation();
 setupReveal();
+animateCounters();
 setupParticles();
 loadPortfolioData();
 setupAdmin();

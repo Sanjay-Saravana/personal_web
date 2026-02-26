@@ -242,6 +242,27 @@ h2 {
   padding: 1.1rem;
 }
 
+
+.metrics {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.metric {
+  text-align: center;
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.metric-number {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.7rem);
+  color: var(--primary);
+  font-weight: 800;
+}
+
 .portfolio-grid {
   display: grid;
   gap: 1rem;
