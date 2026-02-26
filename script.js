@@ -155,7 +155,6 @@ const setPortfolioCounts = (data) => {
 };
 
 const loadPortfolioData = async () => {
-  const supabase = getSupabaseClient();
   if (!supabase) {
     renderItems('web-apps', []);
     renderItems('projects', []);
@@ -302,7 +301,6 @@ const setupAdmin = () => {
 
   const adminTools = document.getElementById('admin-tools');
   const message = document.getElementById('admin-message');
-  const supabase = getSupabaseClient();
   let adminItems = [];
 
   setupEditorToolbars();
