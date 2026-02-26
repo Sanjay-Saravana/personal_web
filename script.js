@@ -1,11 +1,13 @@
 const SUPABASE_CONFIG = window.__SUPABASE_CONFIG || null;
 
-const getSupabaseClient = () => {
-  if (!window.supabase || !SUPABASE_CONFIG?.url || !SUPABASE_CONFIG?.anonKey) {
-    return null;
-  }
-  return window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-};
+let supabase = null;
+
+if (window.supabase && SUPABASE_CONFIG?.url && SUPABASE_CONFIG?.anonKey) {
+  supabase = window.supabase.createClient(
+    SUPABASE_CONFIG.url,
+    SUPABASE_CONFIG.anonKey
+  );
+}
 
 const applyTheme = (theme) => {
   document.documentElement.setAttribute('data-theme', theme);
