@@ -50,6 +50,18 @@ body {
   margin: 0 auto;
 }
 
+.utility-strip {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+}
+
+.utility-inner {
+  min-height: 52px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -123,7 +135,7 @@ body {
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1.2rem;
+  gap: 1rem;
   margin: 0;
   padding: 0;
 }
@@ -326,15 +338,19 @@ h2 {
 }
 
 .feed-counters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
   margin-top: 0.8rem;
 }
 
 .counter-chip {
-  padding: 0.45rem 0.8rem;
+  padding: 0.55rem 0.8rem;
   font-size: 0.92rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .portfolio-grid {
@@ -487,6 +503,10 @@ h2 {
 
   .menu-toggle {
     display: inline-block;
+  }
+
+  .feed-counters {
+    grid-template-columns: 1fr;
   }
 
   .nav-links {
