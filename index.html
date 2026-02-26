@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,11 +22,15 @@
     <header class="site-header" id="top">
       <nav class="nav container">
         <a class="brand" href="#top">Sanjay Saravanan</a>
-        <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
+        <div class="nav-actions">
+          <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">🌙</button>
+          <a class="admin-link" href="admin.html">Admin</a>
+          <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
+        </div>
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#expertise">Expertise</a></li>
-          <li><a href="#impact">Impact</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -44,12 +48,15 @@
           </p>
           <div class="cta-row">
             <a class="btn btn-primary" href="mailto:hello@sanjaysaravanan.com">Hire Me</a>
-            <a class="btn btn-secondary" href="https://sanjaysaravanan.com" target="_blank" rel="noreferrer"
-              >Visit Domain</a
-            >
+            <a class="btn btn-secondary" href="https://sanjaysaravanan.com" target="_blank" rel="noreferrer">Visit Domain</a>
           </div>
         </div>
-        <aside class="hero-card float-card">
+        <aside class="hero-profile float-card">
+          <img
+            class="profile-pic"
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80"
+            alt="Portrait placeholder for Sanjay Saravanan"
+          />
           <p class="card-title">Core Profile</p>
           <ul>
             <li>Full Stack Web Development</li>
@@ -65,8 +72,8 @@
         <h2>About Me</h2>
         <p>
           I bridge software engineering and AI research to deliver end-to-end solutions: intuitive front-ends,
-          robust backend systems, and intelligent ML pipelines. As an M.Tech student at IIT Madras, I combine
-          deep technical depth with practical product thinking.
+          robust backend systems, and intelligent ML pipelines. As an M.Tech student at IIT Madras, I combine deep
+          technical depth with practical product thinking.
         </p>
       </section>
 
@@ -75,59 +82,47 @@
         <div class="grid cards">
           <article class="card glow-card">
             <h3>Modern Full Stack Development</h3>
-            <p>
-              Architecting secure, high-performance web apps with clean APIs, responsive UIs, and production-ready
-              deployment workflows.
-            </p>
+            <p>Architecting secure, high-performance web apps with clean APIs, responsive UIs, and production-ready workflows.</p>
           </article>
           <article class="card glow-card">
             <h3>Python & Data Science</h3>
-            <p>
-              Developing data-driven solutions, analytics systems, and experimentation pipelines that move from
-              notebook to production.
-            </p>
+            <p>Building data-driven products, experimentation frameworks, and analytics pipelines from prototype to production.</p>
           </article>
           <article class="card glow-card">
             <h3>Machine Learning & Deep Learning</h3>
-            <p>
-              Designing, training, evaluating, and deploying ML/DL models with a focus on impact, explainability,
-              and scalability.
-            </p>
+            <p>Training and deploying explainable ML/DL models with rigorous evaluation, monitoring, and measurable business impact.</p>
           </article>
           <article class="card glow-card">
             <h3>Agentic AI Engineering</h3>
-            <p>
-              Building autonomous AI agents and orchestration systems that reason, plan, and execute across tools and
-              workflows.
-            </p>
+            <p>Designing autonomous AI agents that can reason, call tools, and orchestrate multi-step workflows reliably.</p>
           </article>
         </div>
       </section>
 
-      <section id="impact" class="section container reveal">
-        <h2>Why Recruiters Choose Me</h2>
-        <div class="grid metrics">
-          <article class="metric">
-            <p class="metric-number" data-target="4">0</p>
-            <p>Core technical domains mastered</p>
+      <section id="portfolio" class="section container reveal">
+        <div class="section-header">
+          <h2>Live Portfolio Feed (Supabase)</h2>
+          <p class="small-note">Entries shown below are loaded from Supabase and managed from the admin page.</p>
+        </div>
+        <div class="portfolio-grid">
+          <article>
+            <h3>Web Apps</h3>
+            <div id="web-apps" class="list-stack"></div>
           </article>
-          <article class="metric">
-            <p class="metric-number" data-target="100">0</p>
-            <p>Commitment to production-grade quality</p>
+          <article>
+            <h3>Projects</h3>
+            <div id="projects" class="list-stack"></div>
           </article>
-          <article class="metric">
-            <p class="metric-number" data-target="24">0</p>
-            <p>Hours mindset for continuous improvement</p>
+          <article>
+            <h3>Python Packages</h3>
+            <div id="python-packages" class="list-stack"></div>
           </article>
         </div>
       </section>
 
       <section id="contact" class="section container reveal">
         <h2>Let’s Build Something Exceptional</h2>
-        <p>
-          If you’re hiring for Full Stack, Python, Data Science, Machine Learning, Deep Learning, or Agentic AI
-          roles, let’s connect.
-        </p>
+        <p>If you’re hiring for Full Stack, Python, Data Science, ML/DL, or Agentic AI roles, let’s connect.</p>
         <div class="contact-links">
           <a href="https://sanjaysaravanan.com" target="_blank" rel="noreferrer">sanjaysaravanan.com</a>
           <a href="mailto:hello@sanjaysaravanan.com">hello@sanjaysaravanan.com</a>
@@ -139,6 +134,7 @@
       <p>© <span id="year"></span> Sanjay Saravanan · IIT Madras</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
   </body>
 </html>
