@@ -19,22 +19,24 @@
   <body>
     <canvas id="particle-canvas" aria-hidden="true"></canvas>
 
-    <div class="quick-corner-actions">
-      <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
-      <a class="admin-link" href="admin.html">Admin Login</a>
-    </div>
-
     <header class="site-header" id="top">
       <nav class="nav container">
         <a class="brand" href="#top">Sanjay Saravanan</a>
-        <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#expertise">Expertise</a></li>
-          <li><a href="#impact">Impact</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+
+        <div class="header-right">
+          <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#expertise">Expertise</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <div class="header-actions">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
+            <a class="admin-link" href="admin.html">Admin Login</a>
+          </div>
+          <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
+        </div>
       </nav>
     </header>
 
@@ -57,7 +59,7 @@
         <aside class="hero-profile float-card reveal">
           <img
             class="profile-pic"
-            src="Sanjay.jpg"
+            src="profile.jpg"
             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80';"
             alt="Sanjay Saravanan profile photo"
           />
@@ -125,6 +127,11 @@
         <div class="section-header">
           <h2>Live Portfolio Feed (Supabase)</h2>
           <p class="small-note">Entries shown below are loaded from Supabase and managed from the admin page.</p>
+          <div class="feed-counters">
+            <span class="counter-chip">Web Apps: <strong class="metric-number" id="count-web-apps" data-target="0">0+</strong></span>
+            <span class="counter-chip">Projects: <strong class="metric-number" id="count-projects" data-target="0">0+</strong></span>
+            <span class="counter-chip">Python Packages: <strong class="metric-number" id="count-python-packages" data-target="0">0+</strong></span>
+          </div>
         </div>
         <div class="portfolio-grid">
           <article class="reveal">

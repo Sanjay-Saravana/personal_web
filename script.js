@@ -62,35 +62,37 @@ const setupReveal = () => {
   reveals.forEach((section) => revealObserver.observe(section));
 };
 
-const animateCounters = () => {
+const animateSingleCounter = (element, target) => {
+  const duration = 900;
+  let start = null;
+  const suffix = element.dataset.suffix || (target === 100 ? '%' : '+');
+
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const value = Math.floor(progress * target);
+    element.textContent = `${value}${suffix}`;
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      element.textContent = `${target}${suffix}`;
+    }
+  };
+
+  requestAnimationFrame(step);
+};
+
+const animateCountersOnView = () => {
   const metrics = document.querySelectorAll('.metric-number');
   if (!metrics.length) return;
-
-  const animateCounter = (element) => {
-    const target = Number(element.dataset.target);
-    const duration = 1200;
-    let start = null;
-
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const value = Math.floor(progress * target);
-      element.textContent = `${value}${target === 100 ? '%' : '+'}`;
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        element.textContent = `${target}${target === 100 ? '%' : '+'}`;
-      }
-    };
-
-    requestAnimationFrame(step);
-  };
 
   const metricObserver = new IntersectionObserver(
     (entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          animateCounter(entry.target);
+          const target = Number(entry.target.dataset.target || 0);
+          animateSingleCounter(entry.target, target);
           observer.unobserve(entry.target);
         }
       });
@@ -99,6 +101,12 @@ const animateCounters = () => {
   );
 
   metrics.forEach((metric) => metricObserver.observe(metric));
+};
+
+const stripHtml = (html) => {
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+  return (temp.textContent || temp.innerText || '').trim();
 };
 
 const renderItems = (containerId, rows) => {
@@ -111,15 +119,33 @@ const renderItems = (containerId, rows) => {
   }
 
   container.innerHTML = rows
-    .map(
-      (row) => `
+    .map((row) => {
+      const htmlBody = row.description_html || row.description || '';
+      return `
       <div class="list-item">
         <h4>${row.title}</h4>
-        <p>${row.description}</p>
+        <div class="rich-content">${htmlBody}</div>
         ${row.url ? `<a href="${row.url}" target="_blank" rel="noreferrer">Visit ↗</a>` : ''}
-      </div>`
-    )
+      </div>`;
+    })
     .join('');
+};
+
+const setPortfolioCounts = (data) => {
+  const typeMap = {
+    web_apps: 'count-web-apps',
+    projects: 'count-projects',
+    python_packages: 'count-python-packages',
+  };
+
+  Object.entries(typeMap).forEach(([type, id]) => {
+    const count = data.filter((item) => item.type === type).length;
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.dataset.target = String(count);
+    el.dataset.suffix = '+';
+    animateSingleCounter(el, count);
+  });
 };
 
 const loadPortfolioData = async () => {
@@ -128,21 +154,24 @@ const loadPortfolioData = async () => {
     renderItems('web-apps', []);
     renderItems('projects', []);
     renderItems('python-packages', []);
+    setPortfolioCounts([]);
     return;
   }
 
   const { data, error } = await supabase.from('portfolio_items').select('*').order('created_at', { ascending: false });
 
-  if (error) {
+  if (error || !data) {
     renderItems('web-apps', []);
     renderItems('projects', []);
     renderItems('python-packages', []);
+    setPortfolioCounts([]);
     return;
   }
 
   renderItems('web-apps', data.filter((item) => item.type === 'web_apps'));
   renderItems('projects', data.filter((item) => item.type === 'projects'));
   renderItems('python-packages', data.filter((item) => item.type === 'python_packages'));
+  setPortfolioCounts(data);
 };
 
 const setupParticles = () => {
@@ -170,7 +199,7 @@ const setupParticles = () => {
 
   const renderParticles = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(34, 211, 238, 0.55)';
+    ctx.fillStyle = 'rgba(34, 211, 238, 0.5)';
 
     particles.forEach((particle) => {
       particle.x += particle.vx;
@@ -197,6 +226,70 @@ const setupParticles = () => {
   renderParticles();
 };
 
+const setupEditorToolbars = () => {
+  document.querySelectorAll('.editor-toolbar').forEach((toolbar) => {
+    const editorId = toolbar.dataset.for;
+    const editor = document.getElementById(editorId);
+    if (!editor) return;
+
+    toolbar.querySelectorAll('button[data-cmd]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        editor.focus();
+        const cmd = btn.dataset.cmd;
+        const value = btn.dataset.value || null;
+        if (cmd === 'insertLineBreak') {
+          document.execCommand('insertLineBreak');
+          return;
+        }
+        document.execCommand(cmd, false, value);
+      });
+    });
+  });
+};
+
+const renderAdminItems = (items) => {
+  const adminList = document.getElementById('admin-item-list');
+  if (!adminList) return;
+
+  if (!items.length) {
+    adminList.innerHTML = '<p class="small-note">No saved items yet.</p>';
+    return;
+  }
+
+  adminList.innerHTML = items
+    .map(
+      (item) => `
+      <div class="list-item admin-row" data-id="${item.id}">
+        <h4>${item.title} <small>(${item.type})</small></h4>
+        <div class="rich-content">${item.description_html || item.description || ''}</div>
+        <div class="row-actions">
+          <button class="btn btn-secondary" type="button" data-action="edit" data-id="${item.id}">Edit</button>
+          <button class="btn btn-secondary" type="button" data-action="delete" data-id="${item.id}">Delete</button>
+        </div>
+      </div>`
+    )
+    .join('');
+};
+
+const fillFormForEdit = (item) => {
+  const form = document.querySelector(`.portfolio-form[data-type='${item.type}']`);
+  if (!form) return;
+
+  form.querySelector("input[name='item-id']").value = item.id;
+  form.querySelector("input[name='title']").value = item.title || '';
+  form.querySelector("input[name='url']").value = item.url || '';
+  const editor = form.querySelector('.rich-editor');
+  if (editor) editor.innerHTML = item.description_html || item.description || '';
+};
+
+const resetForm = (form) => {
+  form.querySelector("input[name='item-id']").value = '';
+  form.querySelector("input[name='title']").value = '';
+  form.querySelector("input[name='url']").value = '';
+  const editor = form.querySelector('.rich-editor');
+  if (editor) editor.innerHTML = '';
+};
+
 const setupAdmin = () => {
   const loginForm = document.getElementById('login-form');
   if (!loginForm) return;
@@ -204,11 +297,24 @@ const setupAdmin = () => {
   const adminTools = document.getElementById('admin-tools');
   const message = document.getElementById('admin-message');
   const supabase = getSupabaseClient();
+  let adminItems = [];
+
+  setupEditorToolbars();
 
   if (!supabase) {
     message.textContent = 'Create supabase-config.js (not committed) from supabase-config.example.js to enable admin login.';
     return;
   }
+
+  const refreshAdminItems = async () => {
+    const { data, error } = await supabase.from('portfolio_items').select('*').order('created_at', { ascending: false });
+    if (error || !data) {
+      message.textContent = 'Failed to load admin items.';
+      return;
+    }
+    adminItems = data;
+    renderAdminItems(adminItems);
+  };
 
   loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -224,38 +330,79 @@ const setupAdmin = () => {
     }
 
     adminTools.hidden = false;
-    message.textContent = 'Login successful. You can now add portfolio entries.';
     loginForm.hidden = true;
+    message.textContent = 'Login successful. CRUD access enabled.';
+    await refreshAdminItems();
   });
 
-  document.querySelectorAll('.admin-form[data-type]').forEach((form) => {
+  document.querySelectorAll('.portfolio-form').forEach((form) => {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      const formData = new FormData(form);
+      const type = form.dataset.type;
+      const id = form.querySelector("input[name='item-id']").value;
+      const title = form.querySelector("input[name='title']").value;
+      const url = form.querySelector("input[name='url']").value || null;
+      const editor = form.querySelector('.rich-editor');
+      const descriptionHtml = editor?.innerHTML || '';
+
       const payload = {
-        type: form.dataset.type,
-        title: formData.get('title'),
-        description: formData.get('description'),
-        url: formData.get('url') || null,
+        type,
+        title,
+        url,
+        description: stripHtml(descriptionHtml),
+        description_html: descriptionHtml,
       };
 
-      const { error } = await supabase.from('portfolio_items').insert(payload);
+      let response;
+      if (id) {
+        response = await supabase.from('portfolio_items').update(payload).eq('id', id);
+      } else {
+        response = await supabase.from('portfolio_items').insert(payload);
+      }
 
-      if (error) {
-        message.textContent = `Could not save entry: ${error.message}`;
+      if (response.error) {
+        message.textContent = `Save failed: ${response.error.message}`;
         return;
       }
 
-      form.reset();
-      message.textContent = 'Saved successfully.';
+      resetForm(form);
+      message.textContent = id ? 'Item updated.' : 'Item created.';
+      await refreshAdminItems();
     });
+
+    form.querySelector("button[data-action='cancel-edit']").addEventListener('click', () => resetForm(form));
+  });
+
+  document.getElementById('admin-item-list')?.addEventListener('click', async (event) => {
+    const target = event.target;
+    const action = target.dataset.action;
+    const id = Number(target.dataset.id);
+    if (!action || !id) return;
+
+    if (action === 'edit') {
+      const item = adminItems.find((entry) => entry.id === id);
+      if (!item) return;
+      fillFormForEdit(item);
+      message.textContent = `Editing: ${item.title}`;
+      return;
+    }
+
+    if (action === 'delete') {
+      const { error } = await supabase.from('portfolio_items').delete().eq('id', id);
+      if (error) {
+        message.textContent = `Delete failed: ${error.message}`;
+        return;
+      }
+      message.textContent = 'Item deleted.';
+      await refreshAdminItems();
+    }
   });
 };
 
 setupThemeToggle();
 setupNavigation();
 setupReveal();
-animateCounters();
+animateCountersOnView();
 setupParticles();
 loadPortfolioData();
 setupAdmin();

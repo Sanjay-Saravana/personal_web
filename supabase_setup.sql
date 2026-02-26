@@ -4,10 +4,12 @@ create table if not exists public.portfolio_items (
   type text not null check (type in ('web_apps', 'projects', 'python_packages')),
   title text not null,
   description text not null,
+  description_html text,
   url text,
   created_at timestamptz not null default now()
 );
 
+alter table public.portfolio_items add column if not exists description_html text;
 alter table public.portfolio_items enable row level security;
 
 -- Public read access for portfolio rendering
@@ -15,8 +17,19 @@ create policy if not exists "public can read portfolio" on public.portfolio_item
 for select
 using (true);
 
--- Authenticated admin can insert rows
+-- Authenticated admin CRUD
 create policy if not exists "authenticated can insert portfolio" on public.portfolio_items
 for insert
 to authenticated
 with check (true);
+
+create policy if not exists "authenticated can update portfolio" on public.portfolio_items
+for update
+to authenticated
+using (true)
+with check (true);
+
+create policy if not exists "authenticated can delete portfolio" on public.portfolio_items
+for delete
+to authenticated
+using (true);

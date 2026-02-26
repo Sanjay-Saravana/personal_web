@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="admin-body">
-    <div class="quick-corner-actions">
-      <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
-    </div>
+    <header class="site-header" id="top">
+      <nav class="nav container">
+        <a class="brand" href="index.html">← Back to Portfolio</a>
+        <div class="header-right">
+          <div class="header-actions">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
+          </div>
+        </div>
+      </nav>
+    </header>
 
     <main class="container admin-page">
-      <header class="admin-header">
-        <a class="brand" href="index.html">← Back to Portfolio</a>
-      </header>
-
       <section class="admin-card reveal visible">
         <h1>Admin Panel</h1>
         <p>Login and manage your portfolio content stored in Supabase.</p>
@@ -30,29 +33,66 @@
         <div id="admin-tools" hidden>
           <p class="success" id="auth-status">Logged in.</p>
 
-          <form class="admin-form" data-type="web_apps">
-            <h3>Add Web App</h3>
+          <h2>Manage Portfolio Items (CRUD)</h2>
+
+          <form class="admin-form portfolio-form" data-type="web_apps">
+            <input type="hidden" name="item-id" />
+            <h3>Web App Entry</h3>
             <input name="title" placeholder="App title" required />
-            <textarea name="description" placeholder="What does this app do?" required></textarea>
             <input name="url" placeholder="https://..." />
+            <div class="editor-toolbar" data-for="editor-web_apps">
+              <button type="button" data-cmd="bold"><strong>B</strong></button>
+              <button type="button" data-cmd="italic"><em>I</em></button>
+              <button type="button" data-cmd="formatBlock" data-value="h2">H2</button>
+              <button type="button" data-cmd="formatBlock" data-value="p">P</button>
+              <button type="button" data-cmd="fontSize" data-value="5">A+</button>
+              <button type="button" data-cmd="insertLineBreak">↵</button>
+            </div>
+            <div id="editor-web_apps" class="rich-editor" contenteditable="true" data-placeholder="Describe your web app..."></div>
             <button class="btn btn-secondary" type="submit">Save Web App</button>
+            <button class="btn btn-secondary" type="button" data-action="cancel-edit">Cancel Edit</button>
           </form>
 
-          <form class="admin-form" data-type="projects">
-            <h3>Add Project</h3>
+          <form class="admin-form portfolio-form" data-type="projects">
+            <input type="hidden" name="item-id" />
+            <h3>Project Entry</h3>
             <input name="title" placeholder="Project title" required />
-            <textarea name="description" placeholder="Project summary" required></textarea>
             <input name="url" placeholder="https://..." />
+            <div class="editor-toolbar" data-for="editor-projects">
+              <button type="button" data-cmd="bold"><strong>B</strong></button>
+              <button type="button" data-cmd="italic"><em>I</em></button>
+              <button type="button" data-cmd="formatBlock" data-value="h2">H2</button>
+              <button type="button" data-cmd="formatBlock" data-value="p">P</button>
+              <button type="button" data-cmd="fontSize" data-value="5">A+</button>
+              <button type="button" data-cmd="insertLineBreak">↵</button>
+            </div>
+            <div id="editor-projects" class="rich-editor" contenteditable="true" data-placeholder="Describe your project..."></div>
             <button class="btn btn-secondary" type="submit">Save Project</button>
+            <button class="btn btn-secondary" type="button" data-action="cancel-edit">Cancel Edit</button>
           </form>
 
-          <form class="admin-form" data-type="python_packages">
-            <h3>Add Python Package</h3>
+          <form class="admin-form portfolio-form" data-type="python_packages">
+            <input type="hidden" name="item-id" />
+            <h3>Python Package Entry</h3>
             <input name="title" placeholder="Package name" required />
-            <textarea name="description" placeholder="Why this package matters" required></textarea>
             <input name="url" placeholder="PyPI / GitHub URL" />
+            <div class="editor-toolbar" data-for="editor-python_packages">
+              <button type="button" data-cmd="bold"><strong>B</strong></button>
+              <button type="button" data-cmd="italic"><em>I</em></button>
+              <button type="button" data-cmd="formatBlock" data-value="h2">H2</button>
+              <button type="button" data-cmd="formatBlock" data-value="p">P</button>
+              <button type="button" data-cmd="fontSize" data-value="5">A+</button>
+              <button type="button" data-cmd="insertLineBreak">↵</button>
+            </div>
+            <div id="editor-python_packages" class="rich-editor" contenteditable="true" data-placeholder="Describe your package..."></div>
             <button class="btn btn-secondary" type="submit">Save Python Package</button>
+            <button class="btn btn-secondary" type="button" data-action="cancel-edit">Cancel Edit</button>
           </form>
+
+          <div class="admin-list-wrap">
+            <h3>Existing Items</h3>
+            <div id="admin-item-list" class="list-stack"></div>
+          </div>
         </div>
 
         <p id="admin-message" class="small-note"></p>
