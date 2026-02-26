@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanjay Saravanan | Full Stack, Python & AI Engineer</title>
+    <meta
+      name="description"
+      content="Portfolio of Sanjay Saravanan — Full Stack Web Developer, Python Developer, Data Scientist, and ML/DL engineer specializing in agentic AI systems."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <header class="site-header" id="top">
+      <nav class="nav container">
+        <a class="brand" href="#top">Sanjay Saravanan</a>
+        <div class="nav-actions">
+          <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">☀️</button>
+          <a class="admin-link" href="admin.html">Admin</a>
+          <button class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">☰</button>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#expertise">Expertise</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero container reveal">
+        <div class="hero-content">
+          <p class="eyebrow">M.Tech Student at IIT Madras</p>
+          <h1>Building intelligent, scalable digital products with modern engineering + AI.</h1>
+          <p class="subtitle">
+            I’m <strong>Sanjay Saravanan</strong> — Full Stack Web Developer, Python Developer, Data Scientist,
+            and Machine Learning / Deep Learning Engineer focused on building recruiter-ready products and
+            production-grade agentic AI systems.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="mailto:hello@sanjaysaravanan.com">Hire Me</a>
+            <a class="btn btn-secondary" href="https://sanjaysaravanan.com" target="_blank" rel="noreferrer">Visit Domain</a>
+          </div>
+        </div>
+        <aside class="hero-profile float-card">
+          <img
+            class="profile-pic"
+            src="profile.jpg"
+            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80';"
+            alt="Sanjay Saravanan profile photo"
+          />
+          <p class="card-title">Core Profile</p>
+          <ul>
+            <li>Full Stack Web Development</li>
+            <li>Python Engineering</li>
+            <li>Data Science & Analytics</li>
+            <li>Machine Learning & Deep Learning</li>
+            <li>Agentic AI Workflows</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section id="about" class="section container reveal">
+        <h2>About Me</h2>
+        <p>
+          I bridge software engineering and AI research to deliver end-to-end solutions: intuitive front-ends,
+          robust backend systems, and intelligent ML pipelines. As an M.Tech student at IIT Madras, I combine deep
+          technical depth with practical product thinking.
+        </p>
+      </section>
+
+      <section id="expertise" class="section container reveal">
+        <h2>Expertise Highlights</h2>
+        <div class="grid cards">
+          <article class="card glow-card">
+            <h3>Modern Full Stack Development</h3>
+            <p>Architecting secure, high-performance web apps with clean APIs, responsive UIs, and production-ready workflows.</p>
+          </article>
+          <article class="card glow-card">
+            <h3>Python & Data Science</h3>
+            <p>Building data-driven products, experimentation frameworks, and analytics pipelines from prototype to production.</p>
+          </article>
+          <article class="card glow-card">
+            <h3>Machine Learning & Deep Learning</h3>
+            <p>Training and deploying explainable ML/DL models with rigorous evaluation, monitoring, and measurable business impact.</p>
+          </article>
+          <article class="card glow-card">
+            <h3>Agentic AI Engineering</h3>
+            <p>Designing autonomous AI agents that can reason, call tools, and orchestrate multi-step workflows reliably.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="impact" class="section container reveal">
+        <h2>Why Recruiters Choose Me</h2>
+        <div class="grid metrics">
+          <article class="metric">
+            <p class="metric-number" data-target="4">0</p>
+            <p>Core technical domains mastered</p>
+          </article>
+          <article class="metric">
+            <p class="metric-number" data-target="100">0</p>
+            <p>Commitment to production-grade quality</p>
+          </article>
+          <article class="metric">
+            <p class="metric-number" data-target="24">0</p>
+            <p>Hours mindset for continuous improvement</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="portfolio" class="section container reveal">
+        <div class="section-header">
+          <h2>Live Portfolio Feed (Supabase)</h2>
+          <p class="small-note">Entries shown below are loaded from Supabase and managed from the admin page.</p>
+        </div>
+        <div class="portfolio-grid">
+          <article>
+            <h3>Web Apps</h3>
+            <div id="web-apps" class="list-stack"></div>
+          </article>
+          <article>
+            <h3>Projects</h3>
+            <div id="projects" class="list-stack"></div>
+          </article>
+          <article>
+            <h3>Python Packages</h3>
+            <div id="python-packages" class="list-stack"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="section container reveal">
+        <h2>Let’s Build Something Exceptional</h2>
+        <p>If you’re hiring for Full Stack, Python, Data Science, ML/DL, or Agentic AI roles, let’s connect.</p>
+        <div class="contact-links">
+          <a href="https://sanjaysaravanan.com" target="_blank" rel="noreferrer">sanjaysaravanan.com</a>
+          <a href="mailto:hello@sanjaysaravanan.com">hello@sanjaysaravanan.com</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© <span id="year"></span> Sanjay Saravanan · IIT Madras</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
