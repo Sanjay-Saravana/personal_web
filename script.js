@@ -1,17 +1,11 @@
 const SUPABASE_CONFIG = window.__SUPABASE_CONFIG || null;
 
-let supabase = null;
-
-if (
-  window.supabase &&
-  SUPABASE_CONFIG?.url &&
-  SUPABASE_CONFIG?.anonKey
-) {
-  supabase = window.supabase.createClient(
-    SUPABASE_CONFIG.url,
-    SUPABASE_CONFIG.anonKey
-  );
-}
+const getSupabaseClient = () => {
+  if (!window.supabase || !SUPABASE_CONFIG?.url || !SUPABASE_CONFIG?.anonKey) {
+    return null;
+  }
+  return window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+};
 
 const applyTheme = (theme) => {
   document.documentElement.setAttribute('data-theme', theme);
@@ -155,6 +149,7 @@ const setPortfolioCounts = (data) => {
 };
 
 const loadPortfolioData = async () => {
+  const supabase = getSupabaseClient();
   if (!supabase) {
     renderItems('web-apps', []);
     renderItems('projects', []);
@@ -301,6 +296,7 @@ const setupAdmin = () => {
 
   const adminTools = document.getElementById('admin-tools');
   const message = document.getElementById('admin-message');
+  const supabase = getSupabaseClient();
   let adminItems = [];
 
   setupEditorToolbars();
