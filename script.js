@@ -15,7 +15,7 @@ const applyTheme = (theme) => {
 };
 
 const setupThemeToggle = () => {
-  const saved = localStorage.getItem('theme') || 'light';
+  const saved = localStorage.getItem('theme') || 'dark';
   applyTheme(saved);
   const toggle = document.getElementById('theme-toggle');
   if (!toggle) return;
